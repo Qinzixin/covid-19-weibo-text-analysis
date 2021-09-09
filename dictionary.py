@@ -35,9 +35,7 @@ def process_text(text,labels,word_to_index):
     samples = []
     for content in data:
         text_to_sequence = padding(content[0],max_length)
-        samples.append([text_to_sequence])
-        print(text_to_sequence)
-    sampletensor = torch.FloatTensor(samples) # Long type will cause error in training?
-    #print(sampletensor)
+        samples.append(text_to_sequence)
+    sampletensor = torch.LongTensor(samples) # Long type will cause error in training,but is essential in embedding
     return sampletensor,labeltensor
 

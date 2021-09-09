@@ -51,28 +51,28 @@ def build_text_model(sentence_cut_name,model_file_name):
     mywords = " ".join(jieba.cut(mytext))
 
     # 生成词云，展示预处理结果
-    text = " ".join(mywords)
-    from wordcloud import WordCloud
-    import os
-    import PIL.Image as image
-    import numpy as np
-    print("Generating word cloud")
-    wordcloud = WordCloud(
-        font_path=os.getcwd() + "/font/kaiti.ttf",
-        mask = np.array(image.open(os.getcwd() + "/font/map.jpg")),
-        mode='RGBA',
-        background_color='white',
-        scale=1
-    ).generate(text)
-    image_produce = wordcloud.to_image()
-    link = os.getcwd() + "/font/wordcloud.png"
-    wordcloud.to_file(link)
-    #image_produce.show()
-    print("word cloud has been genrated in "+str(link))
-    # 保存分词
-    f = open('splite_word_all.txt', 'w', encoding='utf-8')
-    f.write(mywords)
-    f.close()
+    # text = " ".join(mywords)
+    # from wordcloud import WordCloud
+    # import os
+    # import PIL.Image as image
+    # import numpy as np
+    # print("Generating word cloud")
+    # wordcloud = WordCloud(
+    #     font_path=os.getcwd() + "/font/kaiti.ttf",
+    #     mask = np.array(image.open(os.getcwd() + "/font/map.jpg")),
+    #     mode='RGBA',
+    #     background_color='white',
+    #     scale=1
+    # ).generate(text)
+    # image_produce = wordcloud.to_image()
+    # link = os.getcwd() + "/font/wordcloud.png"
+    # wordcloud.to_file(link)
+    # #image_produce.show()
+    # print("word cloud has been genrated in "+str(link))
+    # # 保存分词
+    # f = open('splite_word_all.txt', 'w', encoding='utf-8')
+    # f.write(mywords)
+    # f.close()
 
     # 计算词向量
     from gensim.models import word2vec as w2v

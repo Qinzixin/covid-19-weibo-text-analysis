@@ -49,7 +49,7 @@ def get_tensor_set():
 
     test_set = data.TensorDataset(samples_test,labels_test)
     test_iter = data.DataLoader(test_set, batch_size, shuffle=True)
-    return train_iter,test_iter,vectors
+    return train_iter,test_iter,vectors,total_word_count
 
 global device
 
@@ -65,13 +65,15 @@ else:
 # 定义RNN模型
 import torch.nn as nn
 class RNN(nn.Module):
-    def __init__(self, input_size,hidden_size):
+    def __init__(self, input_size,hidden_size,total_word_count):
         super(RNN,self).__init__()
-        #self.embeds = nn.Embedding()
-        self.h0 = torch.randn(1, 1, hidden_size)
-        self.rnn = nn.RNN(input_size=input_size,hidden_size=hidden_size)
+        self.embeds = nn.Embedding(total_word_count,embedding_dim=256)
+        self.h0 = torch.randn(1, 50, hidden_size)
+        self.rnn = nn.RNN(input_size=256,hidden_size=hidden_size)
         self.mlp = nn.Sequential(nn.Linear(hidden_size,6))
     def forward(self,x):
+        x = self.embeds(x.to(device))
+        #print(x.size())
         out,hidden = self.rnn(x.to(device),self.h0.to(device))
         return self.mlp(out)
 
@@ -122,8 +124,8 @@ def train(net,loss,optimizer,train_iter,test_iter):
 
 
 loss = nn.CrossEntropyLoss()
-train_iter, test_iter,vector = get_tensor_set()
-rnn = RNN(input_size=50,hidden_size=32)
+train_iter, test_iter,vector,total_word_count = get_tensor_set()
+rnn = RNN(input_size=50,hidden_size=32,total_word_count = total_word_count)
 optimizer = torch.optim.Adam(rnn.parameters(),lr=1e-4)
 train(rnn,loss,optimizer,train_iter,test_iter)
 

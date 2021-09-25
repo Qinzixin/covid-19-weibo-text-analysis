@@ -14,12 +14,12 @@ def get_tokenized_text(text,labels,word_to_index):
             word_list = " ".join(jieba.cut(textline))
             for word in word_list:
                 if (word in word_to_index.keys()):
-                    temp.append(int(word_to_index[word]))
+                    temp.append(int(word_to_index[word])+2)
                 else:
                     temp.append(0)
             yield [temp, labels[i]]
 
-def padding(x,max_length):
+def padding(x,max_length, total_word_count):
     if len(x)>max_length:
         text = x[:max_length]
     else:
@@ -28,13 +28,13 @@ def padding(x,max_length):
 
 # 文本处理为相同长度的序列
 # 核心模块：文本转向量，向量转固定长度的张量
-def process_text(text,labels,word_to_index):
+def process_text(text,labels,word_to_index, total_word_count):
     data = get_tokenized_text(text,labels,word_to_index)
     max_length = 50
     labeltensor = torch.IntTensor(labels)
     samples = []
     for content in data:
-        text_to_sequence = padding(content[0],max_length)
+        text_to_sequence = padding(content[0],max_length, total_word_count)
         samples.append(text_to_sequence)
     sampletensor = torch.LongTensor(samples) # Long type will cause error in training,but is essential in embedding
     return sampletensor,labeltensor

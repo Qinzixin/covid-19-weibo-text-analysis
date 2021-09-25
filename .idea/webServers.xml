@@ -2,8 +2,8 @@
 <project version="4">
   <component name="WebServers">
     <option name="servers">
-      <webServer id="be6176f9-45e7-42ac-b138-588922c32cee" name="cw5">
-        <fileTransfer accessType="SFTP" host="hz-t3.matpool.com" port="27222" sshConfigId="ebb6f313-9831-4d27-96e4-847a9ed84218" sshConfig="root@hz-t3.matpool.com:27222 password">
+      <webServer id="be6176f9-45e7-42ac-b138-588922c32cee" name="cw5" url="http://172.31.246.45">
+        <fileTransfer rootFolder="/data/QinZixin/learn" accessType="SFTP" host="172.31.246.45" port="22" sshConfigId="ebb6f313-9831-4d27-96e4-847a9ed84218" sshConfig="Server27">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

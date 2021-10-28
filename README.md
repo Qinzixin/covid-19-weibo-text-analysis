@@ -1,7 +1,7 @@
 # Covid-19-weibo-text-analysis
 # 疫情微博中文文本情感分类
-Sentiment classification for Weibo text data (Chinese) during COVID 19. 
-- Final Coursework for Module Deep Learninging in BJTU
+- Sentiment classification for Weibo text data (Chinese) during COVID 19. 
+- Final Coursework for Graduate Module **Deep Learning** in BJTU
 
 # Run（运行方式）
 `python train.py`
